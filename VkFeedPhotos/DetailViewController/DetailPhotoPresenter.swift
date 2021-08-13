@@ -18,10 +18,10 @@ class DetailPhotoPresenter: NSObject, DetailPhotoPresentationLogic {
     func presentData(response: DetailPhoto.Model.Response.ResponseType) {
         switch response {
         case .presentPhoto(feed: let feed):
-            let idCell = feed.idCurrentCell
-            var cell = feed.cells[idCell]
-            
-            viewController?.displayData(viewModel: .displayPhotosFeed(cell: cell))
+           
+//            let idCell = feed.idCurrentCell
+//            let cell = feed.cells[idCell]
+            viewController?.displayData(viewModel: .displayPhotosFeed(cell: feed))
         }
     }
     

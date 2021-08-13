@@ -13,6 +13,7 @@ protocol AuthServiceDelegate: class {
     func authServiceShouldShow(viewController: UIViewController)
     func authServiceSignIn()
     func authServiceSignInDidFail()
+    func authServiceLogOut()
 }
 
 class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
@@ -34,28 +35,39 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
     }
     
     func wakeUpSession() {
+        print("wakeUpSession")
         let scope = ["offline"]
 //        let scope = ["wall, friends"]
         VKSdk.wakeUpSession(scope) { [delegate] (state, error) in
             switch state {
             case .initialized:
                 print("initialized")
-                VKSdk.authorize(scope)
+                delegate?.authServiceLogOut()
+//                VKSdk.authorize(scope)
             case .authorized:
                 print("authorized")
                 delegate?.authServiceSignIn()
-
             default:
                 delegate?.authServiceSignInDidFail()
             }
         }
     }
     
+    func autorized() {
+        let scope = ["offline"]
+        VKSdk.authorize(scope)
+    }
+    
+    func logOut() {
+        VKSdk.forceLogout()
+    }
+    
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         print(#function)
-    
         if result.token != nil {
             delegate?.authServiceSignIn()
+        } else {
+            delegate?.authServiceLogOut()
         }
     }
     

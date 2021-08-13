@@ -12,7 +12,8 @@ enum DetailPhoto {
     enum Model {
         struct Request {
             enum RequestType {
-                case getPhoto
+                case getPhotos
+                case getPhoto(idPhoto: Int)
             }
         }
         struct Response {
@@ -22,7 +23,7 @@ enum DetailPhoto {
         }
         struct ViewModel {
             enum ViewModelData {
-                case displayPhotosFeed(cell: FeedViewModel.Cell)
+                case displayPhotosFeed(cell: DetailPhotoFeedViewModel)
             }
         }
     }
@@ -31,5 +32,6 @@ enum DetailPhoto {
 struct DetailPhotoFeedViewModel {
     let idCurrentCell: Int
     let cells: [FeedViewModel.Cell]
- 
 }
+
+

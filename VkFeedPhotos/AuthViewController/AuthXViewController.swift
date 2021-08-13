@@ -15,10 +15,15 @@ class AuthXViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        print("viewDidLoad Auth")
         authService = SceneDelegate.shared().authService
+    }
+    
+    deinit {
+        print("deinit AuthViewController")
     }
 
     @IBAction func signInTouch(_ sender: Any) {
-        authService.wakeUpSession()
+        authService.autorized()
     }
 }

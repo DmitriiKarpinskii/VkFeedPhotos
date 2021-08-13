@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol DetailPhotosBusinessLogic {
-    func fetchDetails()
+    func fetchDetails(requsest: DetailPhoto.Model.Request.RequestType)
 }
 
 protocol DetailPhotoStoreProtocol : class {
@@ -16,12 +17,24 @@ protocol DetailPhotoStoreProtocol : class {
 }
 
 class DetailPhotosInteractor : NSObject, DetailPhotosBusinessLogic, DetailPhotoStoreProtocol {
+  
+    
     var presenter: DetailPhotoPresentationLogic?
     var feedPhotos: DetailPhotoFeedViewModel!
     
-    func fetchDetails() {
-        presenter?.presentData(response: .presentPhoto(feed: feedPhotos))
-        print("interactor")
+    func fetchDetails(requsest: DetailPhoto.Model.Request.RequestType) {
+        switch requsest {
+            
+       
+        case .getPhotos:
+            presenter?.presentData(response: .presentPhoto(feed: feedPhotos))
+        case .getPhoto(idPhoto: let idPhoto):
+            let newDetailFeedViewModel = DetailPhotoFeedViewModel(idCurrentCell: idPhoto, cells: feedPhotos.cells)
+            presenter?.presentData(response: .presentPhoto(feed: newDetailFeedViewModel))
+     
+        }
+     
+        
     }
     
 }

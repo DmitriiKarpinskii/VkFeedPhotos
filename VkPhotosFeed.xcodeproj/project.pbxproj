@@ -28,6 +28,8 @@
 		7063F2F426BA84AE00F8C9C9 /* PhotosFeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7063F2ED26BA84AE00F8C9C9 /* PhotosFeedViewController.xib */; };
 		7063F2FA26BA977D00F8C9C9 /* VKSdkFramework.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */; };
 		7063F2FB26BA977D00F8C9C9 /* VKSdkFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7065E14E26C67F1D00DBA246 /* WakeUpSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */; };
+		7065E15026C67FE900DBA246 /* WakeUpSessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */; };
 		7069EA8726C2A3400015FAF5 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7069EA8626C2A3400015FAF5 /* WebImageView.swift */; };
 		706DC14626C3C2C500EE3324 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706DC14426C3C2C500EE3324 /* DetailPhotoViewController.swift */; };
 		706DC14726C3C2C500EE3324 /* DetailPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706DC14526C3C2C500EE3324 /* DetailPhotoViewController.xib */; };
@@ -75,6 +77,8 @@
 		7063F2EC26BA84AE00F8C9C9 /* PhotosFeedInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFeedInteractor.swift; sourceTree = "<group>"; };
 		7063F2ED26BA84AE00F8C9C9 /* PhotosFeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosFeedViewController.xib; sourceTree = "<group>"; };
 		7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VKSdkFramework.xcframework; path = Carthage/Build/VKSdkFramework.xcframework; sourceTree = "<group>"; };
+		7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpSessionViewController.swift; sourceTree = "<group>"; };
+		7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WakeUpSessionViewController.xib; sourceTree = "<group>"; };
 		7069EA8626C2A3400015FAF5 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		706DC14426C3C2C500EE3324 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
 		706DC14526C3C2C500EE3324 /* DetailPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPhotoViewController.xib; sourceTree = "<group>"; };
@@ -138,6 +142,7 @@
 				7063F2CF26BA826800F8C9C9 /* AppDelegate.swift */,
 				7063F2D126BA826800F8C9C9 /* SceneDelegate.swift */,
 				70EA655326BBD034000F56CE /* AuthViewController */,
+				7065E14B26C67E9800DBA246 /* GreetViewController */,
 				70EA655226BBD00B000F56CE /* DetailViewController */,
 				70EA654826BAA209000F56CE /* Services */,
 				704FBB9426BC33B80027F5C7 /* Views */,
@@ -169,6 +174,15 @@
 				7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7065E14B26C67E9800DBA246 /* GreetViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */,
+				7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */,
+			);
+			path = GreetViewController;
 			sourceTree = "<group>";
 		};
 		70EA654826BAA209000F56CE /* Services */ = {
@@ -265,6 +279,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7063F2DC26BA826900F8C9C9 /* LaunchScreen.storyboard in Resources */,
+				7065E15026C67FE900DBA246 /* WakeUpSessionViewController.xib in Resources */,
 				704FBB9C26BC35150027F5C7 /* PhotoCell.xib in Resources */,
 				706DC14726C3C2C500EE3324 /* DetailPhotoViewController.xib in Resources */,
 				7063F2F426BA84AE00F8C9C9 /* PhotosFeedViewController.xib in Resources */,
@@ -307,6 +322,7 @@
 				704FBB9B26BC35150027F5C7 /* PhotoCell.swift in Sources */,
 				706DC14B26C3F3FB00EE3324 /* DetailPhotoRouter.swift in Sources */,
 				7063F2F226BA84AE00F8C9C9 /* PhotosFeedViewController.swift in Sources */,
+				7065E14E26C67F1D00DBA246 /* WakeUpSessionViewController.swift in Sources */,
 				7063F2F126BA84AE00F8C9C9 /* PhotosFeedModels.swift in Sources */,
 				7063F2EE26BA84AE00F8C9C9 /* PhotosFeedPresenter.swift in Sources */,
 				7063F2D026BA826800F8C9C9 /* AppDelegate.swift in Sources */,

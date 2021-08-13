@@ -48,6 +48,10 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         router.viewController     = viewController
     }
     
+    deinit {
+        print("deinit ViewController")
+    }
+    
     // MARK: Routing
     
     
@@ -65,6 +69,7 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         photosCollectionView.register(nibCell, forCellWithReuseIdentifier: PhotoCell.reuseId)
         interactor?.makeRequest(request: .getPhotosFeed)
         
+        
     }
     
     func displayData(viewModel: PhotosFeed.Model.ViewModel.ViewModelData) {
@@ -77,13 +82,15 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
 
     func setupNavigationItems() {
         title = "Mobile Up Gallary"
-        let exitButton = UIBarButtonItem(title: "Выход", style: .done, target: self, action: #selector(exitButtonPressed))
-        exitButton.tintColor = .black
-        navigationItem.rightBarButtonItem = exitButton
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход",
+                                                            style: .done,
+                                                            target:
+                                                                self, action: #selector(exitButtonPressed))
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
     }
     
     @objc func exitButtonPressed() {
-        print("exit Touch")
+        SceneDelegate.shared().authServiceLogOut()
     }
 }
 
@@ -95,13 +102,11 @@ extension PhotosFeedViewController :  UICollectionViewDelegate , UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = photosCollectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
-        
         cell.set(viewModel: feedViewModel.cells[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("select row \(indexPath)")
         let cells = feedViewModel.cells
         let feedPhotosWithIdCurrentCell = DetailPhotoFeedViewModel(idCurrentCell: indexPath.row, cells: cells)
         router?.navigateToDetails(feedViewModel: feedPhotosWithIdCurrentCell)

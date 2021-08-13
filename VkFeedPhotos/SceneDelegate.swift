@@ -10,6 +10,7 @@ import VKSdkFramework
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
   
+  
     var window: UIWindow?
     var authService: AuthService!
     
@@ -31,11 +32,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         authService = AuthService()
         authService.delegate = self
         
-//        let authVC = UIStoryboard(name: "AuthViewController", bundle: nil).instantiateInitialViewController() as? AuthViewController
+//        let authVC = AuthXViewController(nibName: "AuthXViewController", bundle: nil)
+//        window?.rootViewController = authVC
+//        window?.makeKeyAndVisible()
         
-        let authVC = AuthXViewController(nibName: "AuthXViewController", bundle: nil)
-        window?.rootViewController = authVC
+        let greetVC = WakeUpSessionViewController(nibName: "WakeUpSessionViewController", bundle: nil)
+        window?.rootViewController = greetVC
         window?.makeKeyAndVisible()
+        
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -47,15 +51,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     //MARK: - AuthServiceDelegate
     
     func authServiceShouldShow(viewController: UIViewController) {
-            print(#function)
-        window?.rootViewController?.present(viewController, animated: true, completion: nil)
+        print(#function)
+        viewController.modalPresentationStyle = .automatic
+//        window?.rootViewController?.present(viewController, animated: true, completion: nil)
+        window?.rootViewController = viewController
+
     }
     
     func authServiceSignIn() {
         print(#function)
-//        let feedVC = UIStoryboard(name: "FeedViewController", bundle: nil).instantiateInitialViewController() as! FeedViewController
-//        let feedVC = Bundle.main.loadNibNamed("PhotosFeedViewController", owner: self, options: nil)![0] as! PhotosFeedViewController
-        
         let feedVC = PhotosFeedViewController(nibName: "PhotosFeedViewController", bundle: nil)
         let navVC = UINavigationController(rootViewController: feedVC)
         window?.rootViewController = navVC
@@ -63,6 +67,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     
     func authServiceSignInDidFail() {
         print(#function)
+    }
+    
+    func authServiceLogOut() {
+        authService.logOut()
+        let authVC = AuthXViewController(nibName: "AuthXViewController", bundle: nil)
+        window?.rootViewController = authVC
     }
 }
 

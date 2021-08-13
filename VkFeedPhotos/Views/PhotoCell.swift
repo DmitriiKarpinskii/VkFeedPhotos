@@ -27,4 +27,8 @@ class PhotoCell: UICollectionViewCell {
     func set(viewModel: FeedCellViewModel) {
         imagePhotoView.set(imageUrl: viewModel.imagePhotoURL)
     }
+    
+    override func prepareForReuse() {
+        imagePhotoView.set(imageUrl: nil)
+    }
 }

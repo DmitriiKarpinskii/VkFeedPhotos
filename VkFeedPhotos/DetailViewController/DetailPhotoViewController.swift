@@ -12,17 +12,13 @@ protocol DetailPhotosDisplayLogic {
 }
 
 class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
-   
-    @IBOutlet weak var imageView: WebImageView!
-    @IBOutlet weak var urlLabel: UILabel!
-    var imageName : String?
     
-    //MARK: - External
+    @IBOutlet weak var photosDetailCollectionView: UICollectionView!
+    @IBOutlet weak var imageView: WebImageView!
+    
+    var feedPhotos = [FeedCellViewModel]()
     
     private(set) var router: (DetailPhotoRoutingLogic & DetailPhotoRoutingDataPassing)?
-    
-    //MARK: - Internal
-    
     private var interactor: (DetailPhotosBusinessLogic & DetailPhotoStoreProtocol)?
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -53,32 +49,89 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        interactor?.fetchDetails()
+        interactor?.fetchDetails(requsest: .getPhotos)
         setupNavigationItems()
-            
-     
+        
+        photosDetailCollectionView.delegate = self
+        photosDetailCollectionView.dataSource = self
+        
+        let nibCell = UINib(nibName: "PhotoCell", bundle: nil)
+        photosDetailCollectionView.register(nibCell, forCellWithReuseIdentifier: PhotoCell.reuseId)
     }
     
     private func setupNavigationItems() {
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save,
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),
+                                                            style: .plain,
                                                             target: self,
-                                                            action: nil)
-        navigationItem.rightBarButtonItem?.tintColor = .black
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-
-        
+                                                            action: #selector(saveToPhotos))
+    }
+    
+    @objc func saveToPhotos() {
+        print(#function)
+        let shareController = UIActivityViewController(activityItems: [imageView.image!], applicationActivities: nil)
+        present(shareController, animated: true, completion: nil)
+        shareController.completionWithItemsHandler = { _, bool, _ ,_ in
+            let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
+            let okButton = UIAlertAction(title: "ок", style: .default, handler: nil)
+            alert.addAction(okButton)
+            alert.title = bool ? "Фотография успешно сохранена" : "Не удалось сохранить фотографию"
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func displayData(viewModel: DetailPhoto.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayPhotosFeed(cell: let feed):
-            title = feed.date
-//            urlLabel.text = viewModel.imagePhotoURL
+            
+            let idCell = feed.idCurrentCell
+            let cells = feed.cells
+            let currentCell = cells[idCell]
+            title = currentCell.date
             let webImageView = WebImageView()
-            webImageView.set(imageUrl: feed.imagePhotoURL)
+            webImageView.set(imageUrl: currentCell.imagePhotoURL)
             imageView.image = webImageView.image
+            feedPhotos = cells
+            photosDetailCollectionView.reloadData()
         }
     }
-    
 }
+
+extension DetailPhotoViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return feedPhotos.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = photosDetailCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        cell.set(viewModel: feedPhotos[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        photosDetailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
+        interactor?.fetchDetails(requsest: .getPhoto(idPhoto: indexPath.row))
+    }
+}
+
+extension DetailPhotoViewController : UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let widthCell = collectionView.frame.height
+        return CGSize(width: widthCell, height: widthCell)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2,
+                            left: 2,
+                            bottom: 2,
+                            right: 2)
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 2
+    }
+}
+

@@ -30,9 +30,7 @@ enum PhotosFeed {
 }
 
 struct FeedViewModel {
-    
     let cells: [Cell]
-    
     struct Cell: FeedCellViewModel {
         var imagePhotoURL: String
         var date: String
