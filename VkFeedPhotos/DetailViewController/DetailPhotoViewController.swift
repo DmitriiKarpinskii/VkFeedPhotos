@@ -59,6 +59,14 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
         photosDetailCollectionView.register(nibCell, forCellWithReuseIdentifier: PhotoCell.reuseId)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
+    
     private func setupNavigationItems() {
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"),

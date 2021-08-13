@@ -61,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     func authServiceSignIn() {
         print(#function)
         let feedVC = PhotosFeedViewController(nibName: "PhotosFeedViewController", bundle: nil)
-        let navVC = UINavigationController(rootViewController: feedVC)
+        let navVC = NavigationController(rootViewController: feedVC)
         window?.rootViewController = navVC
     }
     

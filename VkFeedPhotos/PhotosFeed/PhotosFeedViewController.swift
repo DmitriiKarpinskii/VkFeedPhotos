@@ -52,7 +52,13 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         print("deinit ViewController")
     }
     
-    // MARK: Routing
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .darkContent
+    }
     
     
     

@@ -30,6 +30,7 @@
 		7063F2FB26BA977D00F8C9C9 /* VKSdkFramework.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		7065E14E26C67F1D00DBA246 /* WakeUpSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */; };
 		7065E15026C67FE900DBA246 /* WakeUpSessionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */; };
+		7065E15326C6B63B00DBA246 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7065E15226C6B63B00DBA246 /* NavigationController.swift */; };
 		7069EA8726C2A3400015FAF5 /* WebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7069EA8626C2A3400015FAF5 /* WebImageView.swift */; };
 		706DC14626C3C2C500EE3324 /* DetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 706DC14426C3C2C500EE3324 /* DetailPhotoViewController.swift */; };
 		706DC14726C3C2C500EE3324 /* DetailPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 706DC14526C3C2C500EE3324 /* DetailPhotoViewController.xib */; };
@@ -79,6 +80,7 @@
 		7063F2F926BA977D00F8C9C9 /* VKSdkFramework.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = VKSdkFramework.xcframework; path = Carthage/Build/VKSdkFramework.xcframework; sourceTree = "<group>"; };
 		7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeUpSessionViewController.swift; sourceTree = "<group>"; };
 		7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WakeUpSessionViewController.xib; sourceTree = "<group>"; };
+		7065E15226C6B63B00DBA246 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		7069EA8626C2A3400015FAF5 /* WebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebImageView.swift; sourceTree = "<group>"; };
 		706DC14426C3C2C500EE3324 /* DetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPhotoViewController.swift; sourceTree = "<group>"; };
 		706DC14526C3C2C500EE3324 /* DetailPhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailPhotoViewController.xib; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			children = (
 				7063F2CF26BA826800F8C9C9 /* AppDelegate.swift */,
 				7063F2D126BA826800F8C9C9 /* SceneDelegate.swift */,
+				7065E15126C6B5FC00DBA246 /* MobileUpGallaryNavController */,
 				70EA655326BBD034000F56CE /* AuthViewController */,
 				7065E14B26C67E9800DBA246 /* GreetViewController */,
 				70EA655226BBD00B000F56CE /* DetailViewController */,
@@ -183,6 +186,14 @@
 				7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */,
 			);
 			path = GreetViewController;
+			sourceTree = "<group>";
+		};
+		7065E15126C6B5FC00DBA246 /* MobileUpGallaryNavController */ = {
+			isa = PBXGroup;
+			children = (
+				7065E15226C6B63B00DBA246 /* NavigationController.swift */,
+			);
+			path = MobileUpGallaryNavController;
 			sourceTree = "<group>";
 		};
 		70EA654826BAA209000F56CE /* Services */ = {
@@ -331,6 +342,7 @@
 				700BF4CD26BBFC0300B2DB02 /* FeedResponse.swift in Sources */,
 				700BF4D026BC026C00B2DB02 /* NetworkDataFetcher.swift in Sources */,
 				700BF4CB26BBDF9B00B2DB02 /* API.swift in Sources */,
+				7065E15326C6B63B00DBA246 /* NavigationController.swift in Sources */,
 				7063F2EF26BA84AE00F8C9C9 /* PhotosFeedWorker.swift in Sources */,
 				70EA654726BAA1FE000F56CE /* AuthService.swift in Sources */,
 				706DC14926C3F3DC00EE3324 /* DetailPhotoInteractor.swift in Sources */,
