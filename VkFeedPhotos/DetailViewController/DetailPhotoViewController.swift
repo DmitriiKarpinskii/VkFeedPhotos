@@ -15,7 +15,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
     
     @IBOutlet weak var photosDetailCollectionView: UICollectionView!
     @IBOutlet weak var imageView: WebImageView!
-    
+    let pinchgesture = UIPinchGestureRecognizer()
     var feedPhotos = [FeedCellViewModel]()
     
     private(set) var router: (DetailPhotoRoutingLogic & DetailPhotoRoutingDataPassing)?
@@ -51,14 +51,16 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
         // Do any additional setup after loading the view.
         interactor?.fetchDetails(requsest: .getPhotos)
         setupNavigationItems()
-        
         photosDetailCollectionView.delegate = self
         photosDetailCollectionView.dataSource = self
+        imageView.isUserInteractionEnabled = true
+        imageView.addGestureRecognizer(pinchgesture)
+        pinchgesture.addTarget(self, action: #selector(pinchedImage))
         
         let nibCell = UINib(nibName: "PhotoCell", bundle: nil)
         photosDetailCollectionView.register(nibCell, forCellWithReuseIdentifier: PhotoCell.reuseId)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setNeedsStatusBarAppearanceUpdate()
@@ -73,6 +75,12 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(saveToPhotos))
+    }
+    
+    @objc func pinchedImage() {
+        guard  let gestureView = pinchgesture.view else { return }
+        gestureView.transform = gestureView.transform.scaledBy(x: pinchgesture.scale, y:  pinchgesture.scale)
+        pinchgesture.scale = 1
     }
     
     @objc func saveToPhotos() {

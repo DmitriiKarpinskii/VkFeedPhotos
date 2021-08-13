@@ -182,8 +182,8 @@
 		7065E14B26C67E9800DBA246 /* GreetViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */,
 				7065E14F26C67FE900DBA246 /* WakeUpSessionViewController.xib */,
+				7065E14D26C67F1D00DBA246 /* WakeUpSessionViewController.swift */,
 			);
 			path = GreetViewController;
 			sourceTree = "<group>";
@@ -224,8 +224,8 @@
 		70EA655326BBD034000F56CE /* AuthViewController */ = {
 			isa = PBXGroup;
 			children = (
-				704FBB9026BC2D420027F5C7 /* AuthXViewController.swift */,
 				704FBB9126BC2D420027F5C7 /* AuthXViewController.xib */,
+				704FBB9026BC2D420027F5C7 /* AuthXViewController.swift */,
 			);
 			path = AuthViewController;
 			sourceTree = "<group>";

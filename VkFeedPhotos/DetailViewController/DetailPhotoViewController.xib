@@ -22,6 +22,7 @@
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Muj-to-faE">
                     <rect key="frame" x="0.0" y="255" width="414" height="386"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Muj-to-faE" secondAttribute="height" multiplier="207:193" id="FLW-2m-me1"/>
                     </constraints>
