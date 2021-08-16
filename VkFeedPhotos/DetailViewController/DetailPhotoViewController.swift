@@ -79,8 +79,13 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
     
     @objc func pinchedImage() {
         guard  let gestureView = pinchgesture.view else { return }
-        gestureView.transform = gestureView.transform.scaledBy(x: pinchgesture.scale, y:  pinchgesture.scale)
-        pinchgesture.scale = 1
+        if pinchgesture.state == .began || pinchgesture.state == .changed {
+            gestureView.transform = (gestureView.transform.scaledBy(x: pinchgesture.scale, y: pinchgesture.scale))
+            pinchgesture.scale = 1.0
+        } else if pinchgesture.state == .ended {
+            pinchgesture.scale = 0.1
+        }
+        
     }
     
     @objc func saveToPhotos() {
@@ -99,7 +104,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
     func displayData(viewModel: DetailPhoto.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayPhotosFeed(cell: let feed):
-            
+
             let idCell = feed.idCurrentCell
             let cells = feed.cells
             let currentCell = cells[idCell]
@@ -134,7 +139,7 @@ extension DetailPhotoViewController : UICollectionViewDelegate, UICollectionView
 extension DetailPhotoViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let widthCell = collectionView.frame.height
+        let widthCell = collectionView.frame.height - 4
         return CGSize(width: widthCell, height: widthCell)
     }
 

@@ -51,7 +51,3 @@ final class NetworkService : Networking {
         return components.url!
     }
 }
-
-// https://api.vk.com/method/users.get?user_ids=210700286&fields=bdate&access_token=533bacf01e11f55b536a565b57531ac114461ae8736d6506a3&v=5.131
-
-//https://api.vk.com/method/photos.get?access_token=0a6d3861a00674d4e9e94f741c1b9821cd8acea6dac2b348d34962d44e389942144f6e9eb45293fcd6e65&album_id=266276915&owner_id=-128666765&v=5.131

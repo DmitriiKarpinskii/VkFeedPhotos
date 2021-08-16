@@ -48,10 +48,6 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         router.viewController     = viewController
     }
     
-    deinit {
-        print("deinit ViewController")
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setNeedsStatusBarAppearanceUpdate()
@@ -59,8 +55,6 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .darkContent
     }
-    
-    
     
     // MARK: View lifecycle
     

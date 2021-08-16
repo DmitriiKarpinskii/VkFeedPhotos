@@ -19,7 +19,6 @@ class NavigationController : UINavigationController {
         if let topVC = viewControllers.last {
             return topVC.preferredStatusBarStyle
         }
-        
         return .default
     }
 }

@@ -40,6 +40,4 @@ struct NetworkDataFethcer: DataFetcher {
         let result = try? decoder.decode(type.self, from: data)
         return result
     }
-    
-    
 }

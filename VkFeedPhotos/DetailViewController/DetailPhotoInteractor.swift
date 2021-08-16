@@ -24,8 +24,7 @@ class DetailPhotosInteractor : NSObject, DetailPhotosBusinessLogic, DetailPhotoS
     
     func fetchDetails(requsest: DetailPhoto.Model.Request.RequestType) {
         switch requsest {
-            
-       
+        
         case .getPhotos:
             presenter?.presentData(response: .presentPhoto(feed: feedPhotos))
         case .getPhoto(idPhoto: let idPhoto):

@@ -38,7 +38,6 @@ class PhotosFeedPresenter: PhotosFeedPresentationLogic {
         let urlImageString = feedItem.photo604
         let date = Date(timeIntervalSince1970: feedItem.date)
         let dateTitle = dateFormatrer.string(from: date)
-        
-        return FeedViewModel.Cell.init(imagePhotoURL: urlImageString ?? "", date: dateTitle)
+        return FeedViewModel.Cell.init(imagePhotoURL: urlImageString, date: dateTitle)
     }
 }
