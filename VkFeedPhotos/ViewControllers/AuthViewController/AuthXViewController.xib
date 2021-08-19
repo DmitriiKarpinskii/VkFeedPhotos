@@ -19,8 +19,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uns-8R-yWW">
-                    <rect key="frame" x="50" y="770" width="314" height="42"/>
+                    <rect key="frame" x="24" y="756" width="366" height="56"/>
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="N4S-Yy-HTp"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
                     <state key="normal" title="Вход через VK">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -28,7 +31,7 @@
                     </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                            <integer key="value" value="5"/>
+                            <integer key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                     </userDefinedRuntimeAttributes>
@@ -37,7 +40,10 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mobile Up Gallary" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="24" translatesAutoresizingMaskIntoConstraints="NO" id="1cj-5A-goQ">
-                    <rect key="frame" x="20" y="146" width="374" height="115"/>
+                    <rect key="frame" x="24" y="208" width="366" height="114"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="114" id="NwL-hT-PGF"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -46,12 +52,12 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="1cj-5A-goQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="4H6-E4-fHQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Uns-8R-yWW" secondAttribute="bottom" constant="50" id="AAv-te-hkl"/>
-                <constraint firstItem="Uns-8R-yWW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="JBZ-I3-KsR"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uns-8R-yWW" secondAttribute="trailing" constant="50" id="OeV-7E-q58"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1cj-5A-goQ" secondAttribute="trailing" constant="20" id="ieE-zY-0Va"/>
-                <constraint firstItem="1cj-5A-goQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="102" id="vWd-4s-tog"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Uns-8R-yWW" secondAttribute="bottom" constant="50" id="1yf-gZ-Uvc"/>
+                <constraint firstItem="1cj-5A-goQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="4H6-E4-fHQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1cj-5A-goQ" secondAttribute="trailing" constant="24" id="Avy-Fi-waP"/>
+                <constraint firstItem="Uns-8R-yWW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="JBZ-I3-KsR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Uns-8R-yWW" secondAttribute="trailing" constant="24" id="KwO-UT-R7J"/>
+                <constraint firstItem="1cj-5A-goQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="164" id="vWd-4s-tog"/>
             </constraints>
             <point key="canvasLocation" x="140.57971014492756" y="57.589285714285708"/>
         </view>

@@ -24,11 +24,11 @@
                     <rect key="frame" x="0.0" y="255" width="414" height="386"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="Muj-to-faE" secondAttribute="height" multiplier="207:193" id="FLW-2m-me1"/>
+                        <constraint firstAttribute="width" secondItem="Muj-to-faE" secondAttribute="height" multiplier="207:193" id="reC-eQ-Xf6"/>
                     </constraints>
                 </imageView>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="dvE-Mx-d6s">
-                    <rect key="frame" x="0.0" y="713" width="414" height="56"/>
+                    <rect key="frame" x="0.0" y="785" width="414" height="56"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="zVG-bv-W6e"/>
@@ -45,12 +45,13 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="Muj-to-faE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="57t-Ow-eac"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="dvE-Mx-d6s" secondAttribute="bottom" constant="21" id="D3O-oh-2dG"/>
                 <constraint firstItem="Muj-to-faE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="H0w-Ya-STa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dvE-Mx-d6s" secondAttribute="trailing" id="J7y-Q2-nBE"/>
                 <constraint firstItem="Muj-to-faE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="UG8-iB-igQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Muj-to-faE" secondAttribute="trailing" id="Vj0-j2-vu0"/>
                 <constraint firstItem="dvE-Mx-d6s" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Yzm-iT-X1E"/>
-                <constraint firstItem="dvE-Mx-d6s" firstAttribute="top" secondItem="Muj-to-faE" secondAttribute="bottom" constant="72" id="Zpy-39-tB9"/>
+                <constraint firstItem="Muj-to-faE" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="wQy-dT-Aek"/>
             </constraints>
             <point key="canvasLocation" x="79.710144927536234" y="73.660714285714278"/>
         </view>

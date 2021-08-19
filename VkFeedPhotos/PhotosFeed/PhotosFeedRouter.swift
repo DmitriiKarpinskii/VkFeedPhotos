@@ -15,13 +15,13 @@ protocol PhotosFeedRoutingLogic {
 class PhotosFeedRouter: NSObject, PhotosFeedRoutingLogic {
 
   weak var viewController: PhotosFeedViewController?
-  
-  // MARK: Routing
 
-      func navigateToDetails(feedViewModel: DetailPhotoFeedViewModel) {
+    func navigateToDetails(feedViewModel: DetailPhotoFeedViewModel) {
         
         let detailVC = DetailPhotoViewController(nibName: "DetailPhotoViewController", bundle: nil)
-        detailVC.router?.dataStore?.feedPhotos = feedViewModel
-        viewController?.navigationController?.pushViewController(detailVC, animated: true)
+        guard let router = detailVC.router, let dataStorce = router.dataStore else { return }
+        dataStorce.feedPhotos = feedViewModel
+        guard let vc = viewController, let navigationController = vc.navigationController else { return }
+        navigationController.pushViewController(detailVC, animated: true)
       }
 }

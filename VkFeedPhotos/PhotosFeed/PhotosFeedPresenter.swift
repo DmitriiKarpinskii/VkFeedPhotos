@@ -21,8 +21,9 @@ class PhotosFeedPresenter: PhotosFeedPresentationLogic {
         return dt
     }()
     
-    
     func presentData(response: PhotosFeed.Model.Response.ResponseType) {
+        
+        guard let viewController = viewController else { return }
         
         switch response {
         case .presentPhotosFeed(feed: let feed):
@@ -30,7 +31,10 @@ class PhotosFeedPresenter: PhotosFeedPresentationLogic {
                 cellViewModel(from: feedItem)
             }
             let feedViewModel = FeedViewModel.init(cells: cells)
-            viewController?.displayData(viewModel: .displayPhotosFeed(feedViewModel: feedViewModel))
+            viewController.displayData(viewModel: .displayPhotosFeed(feedViewModel: feedViewModel))
+            
+        case .presentError(error: let error):
+            viewController.displayData(viewModel: .displayErrorAlert(error: error))
         }
     }
     

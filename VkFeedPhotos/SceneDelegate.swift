@@ -10,13 +10,12 @@ import VKSdkFramework
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     
-    
     var window: UIWindow?
     var authService: AuthService!
     
-    static func shared() -> SceneDelegate {
+    static func shared() -> SceneDelegate? {
         let scene = UIApplication.shared.connectedScenes.first
-        let sceneDelegate = (scene?.delegate as? SceneDelegate)!
+        guard let sceneDelegate = scene?.delegate as? SceneDelegate else { return nil }
         return sceneDelegate
     }
     
@@ -29,8 +28,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
         authService.delegate = self
         
         let wakeUpVC = WakeUpSessionViewController(nibName: "WakeUpSessionViewController", bundle: nil)
-        window?.rootViewController = wakeUpVC
-        window?.makeKeyAndVisible()
+        guard let window = window else { return }
+        window.rootViewController = wakeUpVC
+        window.makeKeyAndVisible()
     }
     
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
@@ -43,13 +43,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     
     func authServiceShouldShow(viewController: UIViewController) {
         viewController.modalPresentationStyle = .automatic
-        window?.rootViewController?.present(viewController, animated: true, completion: nil)
+        guard let window = window else { return }
+        window.rootViewController?.present(viewController, animated: true, completion: nil)
     }
     
     func authServiceSignIn() {
         let feedVC = PhotosFeedViewController(nibName: "PhotosFeedViewController", bundle: nil)
         let navVC = NavigationController(rootViewController: feedVC)
-        window?.rootViewController = navVC
+        guard let window = window else { return }
+        window.rootViewController = navVC
     }
     
     func authServiceSignInDidFail() {
@@ -59,8 +61,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthServiceDelegate {
     func authServiceLogOut() {
         print(#function)
         let authVC = AuthXViewController(nibName: "AuthXViewController", bundle: nil)
-        window?.rootViewController = authVC
+        guard let window = window else { return }
+        window.rootViewController = authVC
         authService.logOut()
     }
+    
+    func authError(error: Error) {
+        guard let window = window, let rootViewController = window.rootViewController else { return }
+        rootViewController.showAlert(with: "Ошибка авторизации", message: error.localizedDescription)
+        print(error.localizedDescription)
+    }
+    
 }
 

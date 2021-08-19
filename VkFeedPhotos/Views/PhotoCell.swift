@@ -14,14 +14,13 @@ protocol FeedCellViewModel {
 }
 
 class PhotoCell: UICollectionViewCell {
-
+    
     static let reuseId = "photoCell"
     
     @IBOutlet weak var imagePhotoView: WebImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func set(viewModel: FeedCellViewModel) {

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol PhotosFeedDisplayLogic: class {
+protocol PhotosFeedDisplayLogic : AnyObject {
     func displayData(viewModel: PhotosFeed.Model.ViewModel.ViewModelData)
 }
 
@@ -56,8 +56,6 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         .darkContent
     }
     
-    // MARK: View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationItems()
@@ -77,20 +75,30 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
         case .displayPhotosFeed(feedViewModel: let feedViewModel):
             self.feedViewModel = feedViewModel
             photosCollectionView.reloadData()
+        case .displayErrorAlert(error: let error):
+            self.showAlert(with: "Ошибка", message: "\(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
-
+    
     func setupNavigationItems() {
         title = "Mobile Up Gallary"
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Выход",
                                                             style: .done,
-                                                            target:
-                                                                self, action: #selector(exitButtonPressed))
-        navigationItem.backBarButtonItem = UIBarButtonItem(title: "")
+                                                            target: self,
+                                                            action: #selector(exitButtonPressed))
+        
+        if let barFont = UIFont(name: "AppleSDGothicNeo-Bold", size: 18) {
+            navigationItem.rightBarButtonItem?.setTitleTextAttributes(
+                [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: barFont],
+                for: .normal)
+        }
     }
     
     @objc func exitButtonPressed() {
-        SceneDelegate.shared().authServiceLogOut()
+        guard let sceneDelegate = SceneDelegate.shared() else { return }
+        sceneDelegate.authServiceLogOut()
     }
 }
 
@@ -101,7 +109,8 @@ extension PhotosFeedViewController :  UICollectionViewDelegate , UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = photosCollectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCell
+        guard let cell = photosCollectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath)
+                as? PhotoCell else { return UICollectionViewCell() }
         cell.set(viewModel: feedViewModel.cells[indexPath.row])
         return cell
     }
@@ -110,36 +119,35 @@ extension PhotosFeedViewController :  UICollectionViewDelegate , UICollectionVie
         let cells = feedViewModel.cells
         let feedPhotosWithIdCurrentCell = DetailPhotoFeedViewModel(idCurrentCell: indexPath.row, cells: cells)
         router?.navigateToDetails(feedViewModel: feedPhotosWithIdCurrentCell)
-       
+        
     }
 }
 
 extension PhotosFeedViewController : UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let itemsPerRow: CGFloat = 2
-        let paddingWidth = 1 * (itemsPerRow + 1)
+        let paddingWidth = itemsPerRow
         let availableWidth = collectionView.frame.width - paddingWidth
         let widthPerItem = availableWidth / itemsPerRow
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0,
-                            left: 0,
-                            bottom: 0,
-                            right: 0)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
-    
-    
 }

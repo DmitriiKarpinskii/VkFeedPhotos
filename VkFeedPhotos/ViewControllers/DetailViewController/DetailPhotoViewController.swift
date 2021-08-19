@@ -49,10 +49,13 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        interactor?.fetchDetails(requsest: .getPhotos)
+        guard let interactor = interactor else { return }
+        interactor.fetchDetails(requsest: .getPhotos)
         setupNavigationItems()
+        
         photosDetailCollectionView.delegate = self
         photosDetailCollectionView.dataSource = self
+        
         imageView.isUserInteractionEnabled = true
         imageView.addGestureRecognizer(pinchgesture)
         pinchgesture.addTarget(self, action: #selector(pinchedImage))
@@ -60,7 +63,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
         let nibCell = UINib(nibName: "PhotoCell", bundle: nil)
         photosDetailCollectionView.register(nibCell, forCellWithReuseIdentifier: PhotoCell.reuseId)
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         setNeedsStatusBarAppearanceUpdate()
@@ -82,10 +85,7 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
         if pinchgesture.state == .began || pinchgesture.state == .changed {
             gestureView.transform = (gestureView.transform.scaledBy(x: pinchgesture.scale, y: pinchgesture.scale))
             pinchgesture.scale = 1.0
-        } else if pinchgesture.state == .ended {
-            pinchgesture.scale = 0.1
         }
-        
     }
     
     @objc func saveToPhotos() {
@@ -93,18 +93,15 @@ class DetailPhotoViewController: UIViewController, DetailPhotosDisplayLogic {
         let shareController = UIActivityViewController(activityItems: [imageView.image!], applicationActivities: nil)
         present(shareController, animated: true, completion: nil)
         shareController.completionWithItemsHandler = { _, bool, _ ,_ in
-            let alert = UIAlertController(title: "", message: nil, preferredStyle: .alert)
-            let okButton = UIAlertAction(title: "ок", style: .default, handler: nil)
-            alert.addAction(okButton)
-            alert.title = bool ? "Фотография успешно сохранена" : "Не удалось сохранить фотографию"
-            self.present(alert, animated: true, completion: nil)
+            let title = bool ? "Фотография успешно сохранена" : "Не удалось сохранить фотографию"
+            self.showAlert(with: title, message: "")
         }
     }
     
     func displayData(viewModel: DetailPhoto.Model.ViewModel.ViewModelData) {
         switch viewModel {
         case .displayPhotosFeed(cell: let feed):
-
+            
             let idCell = feed.idCurrentCell
             let cells = feed.cells
             let currentCell = cells[idCell]
@@ -125,33 +122,34 @@ extension DetailPhotoViewController : UICollectionViewDelegate, UICollectionView
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = photosDetailCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId, for: indexPath) as! PhotoCell
+        let cell = photosDetailCollectionView.dequeueReusableCell(withReuseIdentifier: PhotoCell.reuseId,
+                                                                  for: indexPath) as! PhotoCell
         cell.set(viewModel: feedPhotos[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         photosDetailCollectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredHorizontally)
-        interactor?.fetchDetails(requsest: .getPhoto(idPhoto: indexPath.row))
+        guard let interactor = interactor else { return }
+        interactor.fetchDetails(requsest: .getPhoto(idPhoto: indexPath.row))
     }
 }
 
 extension DetailPhotoViewController : UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let widthCell = collectionView.frame.height - 4
         return CGSize(width: widthCell, height: widthCell)
     }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 2,
-                            left: 2,
-                            bottom: 2,
-                            right: 2)
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 2, left: 2, bottom: 2, right: 2)
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 2
     }
 }

@@ -8,28 +8,30 @@
 import Foundation
 
 protocol DataFetcher {
-    func getFeed(response: @escaping (FeedResponse?) -> Void)
+    func getFeed(completion: @escaping (FeedResponse?, Error?) -> Void)
 }
 
 struct NetworkDataFethcer: DataFetcher {
     
-    let networkig : Networking
+    let networkig : Networking?
     
-    init(networkig: Networking) {
+    init?(networkig: Networking?) {
+        guard let networkig = networkig else { return nil }
         self.networkig = networkig
     }
     
-    func getFeed(response: @escaping (FeedResponse?) -> Void) {
-
+    func getFeed(completion: @escaping (FeedResponse?, Error?) -> Void) {
         let params = ["owner_id" : API.idClub, "album_id" : API.idAlbum]
+        guard let networkig = networkig else { return }
         networkig.request(path: API.photosFeed, params: params) { (data, error) in
+            
             if let error = error {
                 print("Error received requsting data: \(error.localizedDescription)")
-                response(nil)
+                completion(nil, error)
             }
             
-            let decoded = self.decodeJSON(type: FeedResponseWrapped.self, from: data)
-            response(decoded?.response)
+            let decodedData = self.decodeJSON(type: FeedResponseWrapped.self, from: data)
+            completion(decodedData?.response, nil)
         }
     }
     

@@ -8,12 +8,15 @@
 import UIKit
 
 class WakeUpSessionViewController: UIViewController {
-
+    
     private var authService: AuthService!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        authService = SceneDelegate.shared().authService
+        
+        
+        guard let sceneDelegate = SceneDelegate.shared() else { return }
+        authService = sceneDelegate.authService
         authService.wakeUpSession()
     }
 }

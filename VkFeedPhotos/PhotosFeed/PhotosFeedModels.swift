@@ -19,11 +19,13 @@ enum PhotosFeed {
         struct Response {
             enum ResponseType {
                 case presentPhotosFeed(feed: FeedResponse)
+                case presentError(error: Error)
             }
         }
         struct ViewModel {
             enum ViewModelData {
                 case displayPhotosFeed(feedViewModel: FeedViewModel)
+                case displayErrorAlert(error: Error)
             }
         }
     }

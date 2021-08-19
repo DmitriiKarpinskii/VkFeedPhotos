@@ -11,12 +11,13 @@ class AuthXViewController: UIViewController {
     
     
     private var authService: AuthService!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        authService = SceneDelegate.shared().authService
+        guard let sceneDelegate = SceneDelegate.shared() else { return }
+        authService = sceneDelegate.authService
     }
-
+    
     @IBAction func signInTouch(_ sender: Any) {
         authService.autorized()
     }

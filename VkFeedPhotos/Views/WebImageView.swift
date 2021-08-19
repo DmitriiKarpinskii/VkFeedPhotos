@@ -10,13 +10,13 @@ import UIKit
 class WebImageView: UIImageView {
     
     func set(imageUrl: String?) {
-
+        
         guard let imageUrl = imageUrl, let url = URL(string: imageUrl) else {
             self.image = nil
             return
         }
         self.contentMode = .scaleAspectFill
-
+        
         if let chachedResponse = URLCache.shared.cachedResponse(for: URLRequest(url: url)) {
             self.image = UIImage(data: chachedResponse.data)
             return
@@ -26,6 +26,8 @@ class WebImageView: UIImageView {
                 if let data = data, let response = response {
                     self?.image = UIImage(data: data)
                     self?.handleLoadedImage(data: data, response: response)
+                } else {
+                    print(error!.localizedDescription)
                 }
             }
         }

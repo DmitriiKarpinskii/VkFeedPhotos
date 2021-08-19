@@ -9,11 +9,12 @@ import Foundation
 import VKSdkFramework
 
 
-protocol AuthServiceDelegate: class {
+protocol AuthServiceDelegate: AnyObject {
     func authServiceShouldShow(viewController: UIViewController)
     func authServiceSignIn()
     func authServiceSignInDidFail()
     func authServiceLogOut()
+    func authError(error: Error)
 }
 
 class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
@@ -41,14 +42,9 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
             case .initialized:
                 print("initialized")
                 delegate?.authServiceLogOut()
-//                delegate?.authServiceSignIn()
-            
             case .authorized:
                 print("authorized")
                 delegate?.authServiceSignIn()
-//                delegate?.authServiceLogOut()
-            
-            
             default:
                 delegate?.authServiceSignInDidFail()
             }
@@ -66,6 +62,8 @@ class AuthService: NSObject, VKSdkDelegate, VKSdkUIDelegate {
         print(#function)
         if result.token != nil {
             delegate?.authServiceSignIn()
+        } else {
+            delegate?.authError(error: PhotosFeedError.authError)
         }
     }
     
