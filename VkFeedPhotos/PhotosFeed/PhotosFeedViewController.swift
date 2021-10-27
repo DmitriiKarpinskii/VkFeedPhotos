@@ -57,6 +57,7 @@ class PhotosFeedViewController: UIViewController, PhotosFeedDisplayLogic {
     }
     
     override func viewDidLoad() {
+        print(#function)
         super.viewDidLoad()
         setupNavigationItems()
         

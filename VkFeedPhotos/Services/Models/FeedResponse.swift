@@ -19,6 +19,14 @@ struct FeedResponse : Decodable  {
 
 struct FeedItem : Decodable {
     let id: Int
-    let photo604: String
+//    let photo604: String
     let date: Double
+    let sizes: [Size]
+}
+
+struct Size : Decodable {
+    let type : String
+    let url: String
+    let width : Int
+    let height: Int
 }

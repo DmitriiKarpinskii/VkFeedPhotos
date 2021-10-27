@@ -11,6 +11,7 @@ enum PhotosFeedError {
     case authError
     case serverError
     case nullResponseError
+    case otherError(error: Error)
 }
 
 extension PhotosFeedError : LocalizedError {
@@ -21,7 +22,9 @@ extension PhotosFeedError : LocalizedError {
         case .serverError:
             return NSLocalizedString("Нет соединения с сервером", comment: "")
         case .nullResponseError:
-            return NSLocalizedString("Ошибка получения результата с сервера", comment: "")
+            return NSLocalizedString("Ошибка при обработке данных с сервера", comment: "")
+        case .otherError(let error):
+            return error.localizedDescription
         }
     }
 }

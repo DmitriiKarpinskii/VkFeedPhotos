@@ -19,7 +19,7 @@ class PhotosFeedInteractor: PhotosFeedBusinessLogic {
     
     
     func makeRequest(request: PhotosFeed.Model.Request.RequestType) {
-        
+        print(#function)
         
         switch request {
         case .getPhotosFeed:
@@ -30,6 +30,8 @@ class PhotosFeedInteractor: PhotosFeedBusinessLogic {
                 guard let self = self  , let presenter = self.presenter else { return }
                 if let feedResponse = feedResponse {
                     presenter.presentData(response: .presentPhotosFeed(feed: feedResponse))
+                } else if let error = error {
+                    presenter.presentData(response: .presentError(error: PhotosFeedError.otherError(error: error)))
                 } else {
                     presenter.presentData(response: .presentError(error: PhotosFeedError.nullResponseError))
                 }

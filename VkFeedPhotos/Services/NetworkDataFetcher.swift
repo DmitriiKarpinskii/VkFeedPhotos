@@ -21,6 +21,7 @@ struct NetworkDataFethcer: DataFetcher {
     }
     
     func getFeed(completion: @escaping (FeedResponse?, Error?) -> Void) {
+        print(#function)
         let params = ["owner_id" : API.idClub, "album_id" : API.idAlbum]
         guard let networkig = networkig else { return }
         networkig.request(path: API.photosFeed, params: params) { (data, error) in
